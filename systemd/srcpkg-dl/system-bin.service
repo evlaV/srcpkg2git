@@ -1,0 +1,10 @@
+[Unit]
+Description=(download and) convert/deobfuscate source package to git (and upload)
+After=network.target
+
+[Service]
+#ExecStart=srcpkg-dl
+ExecStart=/usr/bin/srcpkg-dl
+
+[Install]
+WantedBy=multi-user.target

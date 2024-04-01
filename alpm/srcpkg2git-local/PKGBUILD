@@ -1,0 +1,164 @@
+# Maintainer: evlaV <valve.evlav@proton.me>
+
+_pkgname=srcpkg2git
+pkgname=$_pkgname-local
+pkgver=0.1
+pkgrel=1
+pkgdesc="source package to git software suite"
+arch=('any')
+url="https://gitlab.com/evlaV/srcpkg2git"
+license=('MPL-2.0 OR GPL-3.0-or-later')
+depends=(
+  'bash'
+  'curl'
+  'git'
+  'grep'
+  'libxml2'
+  'tar'
+)
+makedepends=('coreutils')
+optdepends=(
+  'coreutils'
+  'findutils'
+  'openssl'
+  'util-linux'
+  # xxd
+  'vim'
+  #'gvim'
+)
+provides=("$_pkgname")
+conflicts=("$_pkgname")
+backup=(etc/{git-remote.conf,srcpkg-dl.conf})
+source=(
+  git-commit.sh
+  git-credential-bashelper.sh
+  git-credential-shelper.sh
+  git-remote.conf.template
+  git-remote.sh
+  LICENSE.GPL
+  LICENSE.MPL
+  #Makefile
+  srcpkg2git-gen.desktop.part # generate XDG.desktop
+  srcpkg2git-logo-brown.png
+  srcpkg2git-logo.png
+  #srcpkg2git.mk
+  srcpkg2git.sh
+  srcpkg2git-system-bin.desktop # pregenerated XDG.desktop
+  srcpkg2git-system-bin.service
+  srcpkg2git.timer
+  srcpkg-dl-bot-gen.desktop.part # generate XDG.desktop
+  #srcpkg-dl-bot.mk
+  srcpkg-dl-bot-system-bin.desktop # pregenerated XDG.desktop
+  srcpkg-dl-bot-system-bin.service
+  srcpkg-dl-bot.timer
+  srcpkg-dl.conf.template
+  srcpkg-dl-gen.desktop.part # generate XDG.desktop
+  #srcpkg-dl.mk
+  srcpkg-dl.sh
+  srcpkg-dl-system-bin.desktop # pregenerated XDG.desktop
+  srcpkg-dl-system-bin.service
+  srcpkg-dl.timer
+)
+b2sums=(
+  '4caa3c6566c4e5fd503bcad7a27104852806714257a18ec859a991317cf5bc6c263b218c379c18372a92021abb1f52879ed670e2b6ff17cb0a26d974ea1c975c'
+  '1c3c208fb9f4c8eb4e40bbf3b11cfc1ee9a7c89f8a88602b76b6dfbf51a0fa2e85c565ba95861a28b1e5dd89491fd07fef7f5b2dd3c5a196a301220d2f7ac70e'
+  '203830211de6c8eba4829c5c74bb2ec3ebc25aa5930aa5546ede3ea766eb769255f03a51a3af4edd9e6597d19af7f91431336fb4634eb7e24dbffc6a427bba15'
+  'df512c1bd0c3d9f77282dba9f638ac081273accccc2365624f13d734ece02372178ff23c4b3be5bb36c5e22feb1bccfc4c945108551034f99f3f1a479e0739b2'
+  '89705750aad47e5bc8ebe4cd6876addbe125091469e7b4c269d983e7236245e3756dc13fe4d606f62392faca9acd29ea8792695416ef9aa204b7e8121bb40061'
+  '74915e048cf8b5207abf603136e7d5fcf5b8ad512cce78a2ebe3c88fc3150155893bf9824e6ed6a86414bbe4511a6bd4a42e8ec643c63353dc8eea4a44a021cd' # LICENSE.GPL
+  'e57391102771f85905986aac45cb923f1738fe96ec4a520bad9a79ce68e7a5b14898cdc97d17d84dc8aff7c5aa2aab853701ef8b27c6a5fe9c1f634c19ca9d9b' # LICENSE.MPL
+  #'d7b6876bd6bc80f07fd20f029449624f36df03c29fe167f3e0886d19a1301e407b1d5cd08093c5a0ff2b905d64e7d9a9b93293208b20c2a378d3becd787a033f' # Makefile
+  'ef099253e8e38fc685e63da481aee87ecaf56979891a54d9c460e0b9ed9f0e3acccd9f189a76f270a452524286928c33a3d813d73c741b053cf9a674db0442d6' # generate XDG.desktop
+  '299c3459fa561ff90a36d03f58f2cc450626d622f7de14c864cb8a9c4c7f7b169a0b109fac9db06034d4dfdcb23e9fbcea70d0dd548d6b878bac08edaf59a964'
+  '444b7ebda883896e5f1e31eab60506109679be8784489f17eadc7dad7e94ad7807379f72ddc0feef22c2c9014319246f4bf369158089388805f86e4f9e1e8182'
+  #'f1f0d8cfc05f5606556e8cb666cfa93ed3c7a0df7bd37036aaf641e4ad7350796d662f754d4e30cf223a6dd15e44381e9ca8618bbe936f1ceaaa5210be34f8fb'
+  '668e425cb88197f79f4cc9b765f62cbdf70121938065dcb7f4a72acd4244eee2c0121233596a0516b30c491d4946705e7a772d83da6d05faa283f9c59e3736f3'
+  '78557978db746408f54e276aa967d87d1e6101d8b2a58a3dc16c6ae971bf4d23c78b8363118cb17e894e9d56597574f5561b8086d6210a825200ec07c93f8088' # pregenerated XDG.desktop
+  '6dbd17e4092803ab34097677e7415801cd149fbc32babf15988d8a2e1004472db477a735abacff9f2bd42ee71edd5c313222bff6bf5de80922a42d0c2735ef75'
+  '83cb1c43036cb2a8201d5bd7864ee359615532d3394b281b5b7036da84ee435d7a42a0b633b66b4428a7b8d9b11233fef7fdea1bdad7e65e3ada75dd75b2ab4d'
+  '2c7515085639527e7d74a46a6e4ef9f283685dc00c0ba93560e6019c6eea9a5d6b8b50f40278d5749fa9c7b653b212efc44b3d4dc20342e43203308e1bb3c012' # generate XDG.desktop
+  #'9b07b52a3d976e05354a50c69d9fe1e55aeea0c90a3aaa3f853ae71bfad1ffe670340fdd3fb2d37ac204e2f0af939a06e8ad59f4e53ae13181d4c2cf0e1ac646'
+  '518b977188c8ebbdfee6192686032383c49458967f87681d5b2f44d6a1419eb2fa83f23fb65d1b73057bfbe2ba276ff4bd9d5e547bc2f9c5a23a4114abd0191d' # pregenerated XDG.desktop
+  '9fa545ebb843ff5709d756fe388caa23e4ab475e9b3dc8dd2fe9ce4f7561a997086489ce605a1e949f67eb1c71883c79971848d26d999265c789608a75c9e5ff'
+  '83cb1c43036cb2a8201d5bd7864ee359615532d3394b281b5b7036da84ee435d7a42a0b633b66b4428a7b8d9b11233fef7fdea1bdad7e65e3ada75dd75b2ab4d'
+  '4fa541756991e5f533820d1ec6c9ed57976773e62aea112ac6385f6d1f88ad4307b4d3ff2e5d6d875ae541b624623c20574de206c3d80a1c52170216a26ec726'
+  '3c745fb11afefa03597d900edb21a2a80b608d8e52ae45c220a0da9e29a553bd6821a7eb791fa9ca8b763d4c693f2ff230257e9d92e1ad0886154462283231a9' # generate XDG.desktop
+  #'7c2b904093dfef1084c01842104452a654cd110e28221a0a123236d1c2654fa950fc972453bdae94f7523873fd3546926351192b4192cd7d3e95937bb340ab13'
+  '4ecbada2e1a3fd5426c7e733a05b64c2faf3f91fe97d8551ece8100346b02db6aa22b0bf427a7aac0c52ea7b6b9258a972bcd1a371d259c27544003d0923169c'
+  '8fbb59bd933991c94ffd36010509b3d7f52feef4cfa7610998dd662d6cf156e14f9c8dcecdba4d951f1c8517358635fff6f9a6aaaf02b06ba16db2148f0b6a42' # pregenerated XDG.desktop
+  '9f663968181e3477917221bf1931fd79f35d1f8e772ec18aec0a8c8e1d6d668250c24cc4f28c03b78a157bd81ef8020fadf37fdaccb72bbdc254f4f5b7f59016'
+  '83cb1c43036cb2a8201d5bd7864ee359615532d3394b281b5b7036da84ee435d7a42a0b633b66b4428a7b8d9b11233fef7fdea1bdad7e65e3ada75dd75b2ab4d'
+)
+
+package() {
+  # Makefile (install[-systemd]-system-[bin|package])
+  #make DESTDIR="$pkgdir/" install-system-bin
+  #make DESTDIR="$pkgdir/" install-systemd-system-bin
+  #make DESTDIR="$pkgdir/" install-system-package
+  #make DESTDIR="$pkgdir/" install-systemd-system-package
+  install -Dm755 git-commit.sh "$pkgdir/usr/bin/git-commit"
+  install -Dm755 git-credential-bashelper.sh "$pkgdir/usr/bin/git-credential-bashelper"
+  install -Dm755 git-credential-shelper.sh "$pkgdir/usr/bin/git-credential-shelper"
+  install -Dm644 git-remote.conf.template "$pkgdir/etc/git-remote.conf"
+  install -Dm755 git-remote.sh "$pkgdir/usr/bin/git-remote"
+  install -Dm644 LICENSE.GPL "$pkgdir/usr/share/licenses/$_pkgname/LICENSE.GPL"
+  install -Dm644 LICENSE.MPL "$pkgdir/usr/share/licenses/$_pkgname/LICENSE.MPL"
+  install -Dm755 srcpkg2git.sh "$pkgdir/usr/bin/srcpkg2git"
+  install -Dm644 srcpkg-dl.conf.template "$pkgdir/etc/srcpkg-dl.conf"
+  install -Dm755 srcpkg-dl.sh "$pkgdir/usr/bin/srcpkg-dl"
+  #for var in srcpkg2git srcpkg-dl srcpkg-dl-bot; do
+  for var in srcpkg-dl-bot; do
+    # pregenerated XDG.desktop
+    if [[ -s $var-system-bin.desktop ]]; then
+      install -Dm644 $var-system-bin.desktop "$pkgdir/usr/share/applications/$var.desktop"
+    # generate XDG.desktop
+    elif [[ -s $var-gen.desktop.part ]]; then
+      [[ $var != "${var%-bot}" ]] && var_arg=" --auto" || var_arg=
+      cp -f $var-gen.desktop.part $var-gen.desktop
+      #echo "Exec=/usr/bin/${var%-bot}$var_arg" >> $var-gen.desktop
+      # sed is a dependency of base-devel and is assumed already installed
+      # sed required
+      sed -i "5iExec=/usr/bin/${var%-bot}$var_arg" $var-gen.desktop
+      # cosmetic user patch (sed required)
+      #sed -i '3s/$/ (user)/' $var-gen.desktop
+      echo "generated XDG desktop entry: $PWD/$var-gen.desktop"
+      install -Dm644 $var-gen.desktop "$pkgdir/usr/share/applications/$var.desktop"
+    fi
+    if [[ -s $var-system-bin.service && -s $var.timer ]]; then
+      # systemd system unit
+      #install -Dm644 $var-system-bin.service "$pkgdir/usr/lib/systemd/system/$var.service"
+      #install -Dm644 $var.timer "$pkgdir/usr/lib/systemd/system/$var.timer"
+      # systemd user unit
+      install -Dm644 $var-system-bin.service "$pkgdir/usr/lib/systemd/user/$var.service"
+      install -Dm644 $var.timer "$pkgdir/usr/lib/systemd/user/$var.timer"
+    fi
+  done
+  # icons
+  if [[ -s srcpkg2git-logo-brown.png && -s srcpkg2git-logo.png ]]; then
+    if [[ -d /usr/local/share/icons ]]; then
+      install -Dm644 srcpkg2git-logo-brown.png "$pkgdir/usr/local/share/icons/hicolor/512x512/apps/srcpkg-dl.png"
+      #install -Dm644 srcpkg2git-logo-brown.png "$pkgdir/usr/local/share/icons/hicolor/512x512/apps/srcpkg-dl-bot.png"
+      ln -s srcpkg-dl.png "$pkgdir/usr/local/share/icons/hicolor/512x512/apps/srcpkg-dl-bot.png"
+      install -Dm644 srcpkg2git-logo.png "$pkgdir/usr/local/share/icons/hicolor/512x512/apps/srcpkg2git.png"
+    elif [[ -d /usr/share/icons ]]; then
+      install -Dm644 srcpkg2git-logo-brown.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg-dl.png"
+      #install -Dm644 srcpkg2git-logo-brown.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg-dl-bot.png"
+      ln -s srcpkg-dl.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg-dl-bot.png"
+      install -Dm644 srcpkg2git-logo.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg2git.png"
+    elif [[ -d /usr/share/pixmaps ]]; then
+      install -Dm644 srcpkg2git-logo-brown.png "$pkgdir/usr/share/pixmaps/srcpkg-dl.png"
+      #install -Dm644 srcpkg2git-logo-brown.png "$pkgdir/usr/share/pixmaps/srcpkg-dl-bot.png"
+      ln -s srcpkg-dl.png "$pkgdir/usr/share/pixmaps/srcpkg-dl-bot.png"
+      install -Dm644 srcpkg2git-logo.png "$pkgdir/usr/share/pixmaps/srcpkg2git.png"
+    else
+      install -Dm644 srcpkg2git-logo-brown.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg-dl.png"
+      #install -Dm644 srcpkg2git-logo-brown.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg-dl-bot.png"
+      ln -s srcpkg-dl.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg-dl-bot.png"
+      install -Dm644 srcpkg2git-logo.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg2git.png"
+      #install -Dm644 srcpkg2git-logo-brown.png "$pkgdir/usr/share/pixmaps/srcpkg-dl.png"
+      ##install -Dm644 srcpkg2git-logo-brown.png "$pkgdir/usr/share/pixmaps/srcpkg-dl-bot.png"
+      #ln -s srcpkg-dl.png "$pkgdir/usr/share/pixmaps/srcpkg-dl-bot.png"
+      #install -Dm644 srcpkg2git-logo.png "$pkgdir/usr/share/pixmaps/srcpkg2git.png"
+    fi
+  fi
+}

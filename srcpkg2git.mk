@@ -1,0 +1,1 @@
+variant := srcpkg2git

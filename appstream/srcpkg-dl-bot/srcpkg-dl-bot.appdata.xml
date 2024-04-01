@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="console-application">
+  <id>io.gitlab.evlaV.srcpkg-dl-bot</id>
+  <name>srcpkg-dl (auto/bot)</name>
+  <summary>(download and) convert/deobfuscate source package to git (and upload)</summary>
+  <metadata_license>0BSD OR CC0-1.0</metadata_license>
+  <project_license>MPL-2.0</project_license>
+  <icon type="stock">srcpkg-dl-bot</icon>
+  <description>
+    <p>srcpkg-dl and srcpkg2git and git-remote are tools to download and convert/deobfuscate and upload source packages.</p>
+  </description>
+  <url type="homepage">https://gitlab.com/evlaV/srcpkg2git/-/blob/master/README.md</url>
+  <url type="vcs-browser">https://gitlab.com/evlaV/srcpkg2git</url>
+  <launchable type="desktop-id">srcpkg-dl-bot.desktop</launchable>
+  <releases>
+    <release version="0.1" timestamp="1711998000" />
+  </releases>
+  <provides>
+    <binary>srcpkg-dl</binary>
+    <binary>srcpkg2git</binary>
+    <binary>git-remote</binary>
+    <binary>git-credential-bashelper</binary>
+    <binary>git-credential-shelper</binary>
+    <binary>git-commit</binary>
+  </provides>
+</component>

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=srcpkg-dl-bot (user)
+Comment=(download and) convert/deobfuscate source package to git (and upload)
+Exec=/usr/bin/bash -c "'\\$HOME/srcpkg2git/srcpkg-dl.sh' --auto"
+Icon=srcpkg-dl-bot
+Terminal=true
+Categories=Utility;ConsoleOnly;

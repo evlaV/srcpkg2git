@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=srcpkg-dl
+Comment=(download and) convert/deobfuscate source package to git (and upload)
+Exec=/usr/bin/srcpkg-dl
+Icon=srcpkg-dl
+Terminal=true
+Categories=Utility;ConsoleOnly;

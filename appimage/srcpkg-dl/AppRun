@@ -1,0 +1,9 @@
+#!/bin/sh
+HERE="$(readlink -f "$(dirname "$0")")"
+#HERE="$(dirname "$(readlink -f "$0")")"
+
+# make srcpkg-dl and srcpkg2git prefer the bundled squashfs
+export PATH="$HERE"/usr/bin:"$PATH"
+
+#exec "$HERE"/usr/bin/srcpkg-dl "$@"
+exec srcpkg-dl "$@"

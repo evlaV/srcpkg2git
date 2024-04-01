@@ -1,0 +1,141 @@
+#app-id: io.gitlab.evlaV.srcpkg-dl-bot
+id: io.gitlab.evlaV.srcpkg-dl-bot
+branch: '0.1'
+#default-branch: '0.1'
+#runtime: org.freedesktop.Platform
+runtime: org.freedesktop.Sdk
+##runtime-version: '21.08'
+##runtime-version: '22.08'
+#runtime-version: '23.08'
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+#command: srcpkg-dl
+# shell script wrapper
+command: srcpkg-dl-bot
+modules:
+# rename-appdata-file (toplevel) property not required
+#  - name: io.gitlab.evlaV.srcpkg-dl-bot.metainfo.xml
+#    buildsystem: simple
+#    build-commands:
+#      - install -Dm644 srcpkg-dl-bot.appdata.xml /app/share/metainfo/io.gitlab.evlaV.srcpkg-dl-bot.metainfo.xml
+#    sources:
+#      - type: file
+#        path: appstream/srcpkg-dl-bot/srcpkg-dl-bot.appdata.xml
+# rename-appdata-file (toplevel) property required
+  - name: srcpkg-dl-bot.appdata.xml
+    buildsystem: simple
+    build-commands:
+      - install -Dm644 srcpkg-dl-bot.appdata.xml /app/share/metainfo/srcpkg-dl-bot.appdata.xml
+    sources:
+      - type: file
+        path: appstream/srcpkg-dl-bot/srcpkg-dl-bot.appdata.xml
+# rename-icon and copy-icon (toplevel) properties not required
+#  - name: io.gitlab.evlaV.srcpkg-dl-bot.png
+#    buildsystem: simple
+#    build-commands:
+#      - install -Dm644 srcpkg2git-logo-brown.png /app/share/icons/hicolor/512x512/apps/srcpkg-dl-bot.png
+#      - install -Dm644 srcpkg2git-logo-brown.png /app/share/icons/hicolor/512x512/apps/io.gitlab.evlaV.srcpkg-dl-bot.png
+#    sources:
+#      - type: file
+#        path: images/srcpkg2git-logo-brown.png
+# rename-icon and copy-icon (toplevel) properties required
+  - name: srcpkg-dl-bot.png
+    buildsystem: simple
+    build-commands:
+      - install -Dm644 srcpkg2git-logo-brown.png /app/share/icons/hicolor/512x512/apps/srcpkg-dl-bot.png
+    sources:
+      - type: file
+        path: images/srcpkg2git-logo-brown.png
+  - name: srcpkg-dl-bot.desktop
+    buildsystem: simple
+    build-commands:
+#      - sed -i 's|Exec=srcpkg-dl-bot|Exec=/app/bin/srcpkg-dl-bot|' srcpkg-dl-bot.desktop
+      - install -Dm644 srcpkg-dl-bot.desktop /app/share/applications/srcpkg-dl-bot.desktop
+    sources:
+      - type: file
+        path: xdg/srcpkg-dl-bot/srcpkg-dl-bot.desktop
+#  - name: git-remote.conf.template
+#    buildsystem: simple
+#    build-commands:
+#      - install -Dm644 git-remote.conf.template /app/etc/git-remote.conf
+#    sources:
+#      - type: file
+#        path: git-remote.conf.template
+  - name: git-remote.conf
+    buildsystem: simple
+    build-commands:
+      - install -Dm644 git-remote.conf /app/etc/git-remote.conf
+    sources:
+      - type: file
+        path: git-remote.conf
+#  - name: srcpkg-dl.conf.template
+#    buildsystem: simple
+#    build-commands:
+#      - install -Dm644 srcpkg-dl.conf.template /app/etc/srcpkg-dl.conf
+#    sources:
+#      - type: file
+#        path: srcpkg-dl.conf.template
+  - name: srcpkg-dl.conf
+    buildsystem: simple
+    build-commands:
+      - install -Dm644 srcpkg-dl.conf /app/etc/srcpkg-dl.conf
+    sources:
+      - type: file
+        path: srcpkg-dl.conf
+  - name: git-commit
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 git-commit.sh /app/bin/git-commit
+    sources:
+      - type: file
+        path: git-commit.sh
+#  - name: git-credential-shelper
+#    buildsystem: simple
+#    build-commands:
+#      - install -Dm755 git-credential-shelper.sh /app/bin/git-credential-shelper
+#    sources:
+#      - type: file
+#        path: git-credential-shelper.sh
+  - name: git-credential-bashelper
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 git-credential-bashelper.sh /app/bin/git-credential-bashelper
+    sources:
+      - type: file
+        path: git-credential-bashelper.sh
+  - name: git-remote
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 git-remote.sh /app/bin/git-remote
+    sources:
+      - type: file
+        path: git-remote.sh
+  - name: srcpkg2git
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 srcpkg2git.sh /app/bin/srcpkg2git
+    sources:
+      - type: file
+        path: srcpkg2git.sh
+  - name: srcpkg-dl
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 srcpkg-dl.sh /app/bin/srcpkg-dl
+    sources:
+      - type: file
+        path: srcpkg-dl.sh
+# shell script wrapper
+  - name: srcpkg-dl-bot
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 srcpkg-dl-bot.sh /app/bin/srcpkg-dl-bot
+    sources:
+      - type: script
+        dest-filename: srcpkg-dl-bot.sh
+        commands:
+#          - exec srcpkg-dl --auto "$@"
+          - exec /app/bin/srcpkg-dl --auto "$@"
+rename-desktop-file: srcpkg-dl-bot.desktop
+rename-appdata-file: srcpkg-dl-bot.appdata.xml
+rename-icon: srcpkg-dl-bot
+copy-icon: true

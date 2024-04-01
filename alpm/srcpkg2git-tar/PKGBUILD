@@ -1,0 +1,108 @@
+# Maintainer: evlaV <valve.evlav@proton.me>
+
+_pkgname=srcpkg2git
+pkgname=$_pkgname-tar
+pkgver=0.1
+pkgrel=1
+pkgdesc="source package to git software suite"
+arch=('any')
+url="https://gitlab.com/evlaV/srcpkg2git"
+license=('MPL-2.0 OR GPL-3.0-or-later')
+depends=(
+  'bash'
+  'curl'
+  'git'
+  'grep'
+  'libxml2'
+  'tar'
+)
+makedepends=('coreutils')
+optdepends=(
+  'coreutils'
+  'findutils'
+  'openssl'
+  'util-linux'
+  # xxd
+  'vim'
+  #'gvim'
+)
+provides=("$_pkgname")
+conflicts=("$_pkgname")
+backup=(etc/{git-remote.conf,srcpkg-dl.conf})
+# GitLab source file formats (in order of precedence): 1. 'tar.gz' 2. 'tar.bz2' 3. 'tar' 4. 'zip'
+source=("$url/-/archive/$pkgver/$_pkgname-$pkgver.tar.gz")
+b2sums=('SKIP')
+
+package() {
+  cd "$_pkgname-$pkgver"
+  # Makefile (install[-systemd]-system-[bin|package])
+  #make DESTDIR="$pkgdir/" install-system-bin
+  #make DESTDIR="$pkgdir/" install-systemd-system-bin
+  #make DESTDIR="$pkgdir/" install-system-package
+  #make DESTDIR="$pkgdir/" install-systemd-system-package
+  install -Dm755 git-commit.sh "$pkgdir/usr/bin/git-commit"
+  install -Dm755 git-credential-bashelper.sh "$pkgdir/usr/bin/git-credential-bashelper"
+  install -Dm755 git-credential-shelper.sh "$pkgdir/usr/bin/git-credential-shelper"
+  install -Dm644 config/git-remote.conf.template "$pkgdir/etc/git-remote.conf"
+  install -Dm755 git-remote.sh "$pkgdir/usr/bin/git-remote"
+  install -Dm644 LICENSE.GPL "$pkgdir/usr/share/licenses/$_pkgname/LICENSE.GPL"
+  install -Dm644 LICENSE.MPL "$pkgdir/usr/share/licenses/$_pkgname/LICENSE.MPL"
+  install -Dm755 srcpkg2git.sh "$pkgdir/usr/bin/srcpkg2git"
+  install -Dm644 config/srcpkg-dl.conf.template "$pkgdir/etc/srcpkg-dl.conf"
+  install -Dm755 srcpkg-dl.sh "$pkgdir/usr/bin/srcpkg-dl"
+  #for var in srcpkg2git srcpkg-dl srcpkg-dl-bot; do
+  for var in srcpkg-dl-bot; do
+    # pregenerated XDG.desktop
+    if [[ -s xdg/$var/system-bin.desktop ]]; then
+      install -Dm644 xdg/$var/system-bin.desktop "$pkgdir/usr/share/applications/$var.desktop"
+    # generate XDG.desktop
+    elif [[ -s xdg/$var/$var-gen.desktop.part ]]; then
+      [[ $var != "${var%-bot}" ]] && var_arg=" --auto" || var_arg=
+      cp -f xdg/$var/$var-gen.desktop.part xdg/$var/$var-gen.desktop
+      #echo "Exec=/usr/bin/${var%-bot}$var_arg" >> xdg/$var/$var-gen.desktop
+      # sed is a dependency of base-devel and is assumed already installed
+      # sed required
+      sed -i "5iExec=/usr/bin/${var%-bot}$var_arg" xdg/$var/$var-gen.desktop
+      # cosmetic user patch (sed required)
+      #sed -i '3s/$/ (user)/' xdg/$var/$var-gen.desktop
+      echo "generated XDG desktop entry: $PWD/xdg/$var/$var-gen.desktop"
+      install -Dm644 xdg/$var/$var-gen.desktop "$pkgdir/usr/share/applications/$var.desktop"
+    fi
+    if [[ -s systemd/$var/system-bin.service && -s systemd/$var/$var.timer ]]; then
+      # systemd system unit
+      #install -Dm644 systemd/$var/system-bin.service "$pkgdir/usr/lib/systemd/system/$var.service"
+      #install -Dm644 systemd/$var/$var.timer "$pkgdir/usr/lib/systemd/system/$var.timer"
+      # systemd user unit
+      install -Dm644 systemd/$var/system-bin.service "$pkgdir/usr/lib/systemd/user/$var.service"
+      install -Dm644 systemd/$var/$var.timer "$pkgdir/usr/lib/systemd/user/$var.timer"
+    fi
+  done
+  # icons
+  if [[ -s images/srcpkg2git-logo-brown.png && -s images/srcpkg2git-logo.png ]]; then
+    if [[ -d /usr/local/share/icons ]]; then
+      install -Dm644 images/srcpkg2git-logo-brown.png "$pkgdir/usr/local/share/icons/hicolor/512x512/apps/srcpkg-dl.png"
+      #install -Dm644 images/srcpkg2git-logo-brown.png "$pkgdir/usr/local/share/icons/hicolor/512x512/apps/srcpkg-dl-bot.png"
+      ln -s srcpkg-dl.png "$pkgdir/usr/local/share/icons/hicolor/512x512/apps/srcpkg-dl-bot.png"
+      install -Dm644 images/srcpkg2git-logo.png "$pkgdir/usr/local/share/icons/hicolor/512x512/apps/srcpkg2git.png"
+    elif [[ -d /usr/share/icons ]]; then
+      install -Dm644 images/srcpkg2git-logo-brown.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg-dl.png"
+      #install -Dm644 images/srcpkg2git-logo-brown.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg-dl-bot.png"
+      ln -s srcpkg-dl.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg-dl-bot.png"
+      install -Dm644 images/srcpkg2git-logo.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg2git.png"
+    elif [[ -d /usr/share/pixmaps ]]; then
+      install -Dm644 images/srcpkg2git-logo-brown.png "$pkgdir/usr/share/pixmaps/srcpkg-dl.png"
+      #install -Dm644 images/srcpkg2git-logo-brown.png "$pkgdir/usr/share/pixmaps/srcpkg-dl-bot.png"
+      ln -s srcpkg-dl.png "$pkgdir/usr/share/pixmaps/srcpkg-dl-bot.png"
+      install -Dm644 images/srcpkg2git-logo.png "$pkgdir/usr/share/pixmaps/srcpkg2git.png"
+    else
+      install -Dm644 images/srcpkg2git-logo-brown.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg-dl.png"
+      #install -Dm644 images/srcpkg2git-logo-brown.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg-dl-bot.png"
+      ln -s srcpkg-dl.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg-dl-bot.png"
+      install -Dm644 images/srcpkg2git-logo.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/srcpkg2git.png"
+      #install -Dm644 images/srcpkg2git-logo-brown.png "$pkgdir/usr/share/pixmaps/srcpkg-dl.png"
+      ##install -Dm644 images/srcpkg2git-logo-brown.png "$pkgdir/usr/share/pixmaps/srcpkg-dl-bot.png"
+      #ln -s srcpkg-dl.png "$pkgdir/usr/share/pixmaps/srcpkg-dl-bot.png"
+      #install -Dm644 images/srcpkg2git-logo.png "$pkgdir/usr/share/pixmaps/srcpkg2git.png"
+    fi
+  fi
+}

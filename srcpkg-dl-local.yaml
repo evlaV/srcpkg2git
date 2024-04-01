@@ -1,0 +1,128 @@
+#app-id: io.gitlab.evlaV.srcpkg-dl
+id: io.gitlab.evlaV.srcpkg-dl
+branch: '0.1'
+#default-branch: '0.1'
+#runtime: org.freedesktop.Platform
+runtime: org.freedesktop.Sdk
+##runtime-version: '21.08'
+##runtime-version: '22.08'
+#runtime-version: '23.08'
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+command: srcpkg-dl
+modules:
+# rename-appdata-file (toplevel) property not required
+#  - name: io.gitlab.evlaV.srcpkg-dl.metainfo.xml
+#    buildsystem: simple
+#    build-commands:
+#      - install -Dm644 srcpkg-dl.appdata.xml /app/share/metainfo/io.gitlab.evlaV.srcpkg-dl.metainfo.xml
+#    sources:
+#      - type: file
+#        path: appstream/srcpkg-dl/srcpkg-dl.appdata.xml
+# rename-appdata-file (toplevel) property required
+  - name: srcpkg-dl.appdata.xml
+    buildsystem: simple
+    build-commands:
+      - install -Dm644 srcpkg-dl.appdata.xml /app/share/metainfo/srcpkg-dl.appdata.xml
+    sources:
+      - type: file
+        path: appstream/srcpkg-dl/srcpkg-dl.appdata.xml
+# rename-icon and copy-icon (toplevel) properties not required
+#  - name: io.gitlab.evlaV.srcpkg-dl.png
+#    buildsystem: simple
+#    build-commands:
+#      - install -Dm644 srcpkg2git-logo-brown.png /app/share/icons/hicolor/512x512/apps/srcpkg-dl.png
+#      - install -Dm644 srcpkg2git-logo-brown.png /app/share/icons/hicolor/512x512/apps/io.gitlab.evlaV.srcpkg-dl.png
+#    sources:
+#      - type: file
+#        path: images/srcpkg2git-logo-brown.png
+# rename-icon and copy-icon (toplevel) properties required
+  - name: srcpkg-dl.png
+    buildsystem: simple
+    build-commands:
+      - install -Dm644 srcpkg2git-logo-brown.png /app/share/icons/hicolor/512x512/apps/srcpkg-dl.png
+    sources:
+      - type: file
+        path: images/srcpkg2git-logo-brown.png
+  - name: srcpkg-dl.desktop
+    buildsystem: simple
+    build-commands:
+#      - sed -i 's|Exec=srcpkg-dl|Exec=/app/bin/srcpkg-dl|' srcpkg-dl.desktop
+      - install -Dm644 srcpkg-dl.desktop /app/share/applications/srcpkg-dl.desktop
+    sources:
+      - type: file
+        path: xdg/srcpkg-dl/srcpkg-dl.desktop
+#  - name: git-remote.conf.template
+#    buildsystem: simple
+#    build-commands:
+#      - install -Dm644 git-remote.conf.template /app/etc/git-remote.conf
+#    sources:
+#      - type: file
+#        path: git-remote.conf.template
+  - name: git-remote.conf
+    buildsystem: simple
+    build-commands:
+      - install -Dm644 git-remote.conf /app/etc/git-remote.conf
+    sources:
+      - type: file
+        path: git-remote.conf
+#  - name: srcpkg-dl.conf.template
+#    buildsystem: simple
+#    build-commands:
+#      - install -Dm644 srcpkg-dl.conf.template /app/etc/srcpkg-dl.conf
+#    sources:
+#      - type: file
+#        path: srcpkg-dl.conf.template
+  - name: srcpkg-dl.conf
+    buildsystem: simple
+    build-commands:
+      - install -Dm644 srcpkg-dl.conf /app/etc/srcpkg-dl.conf
+    sources:
+      - type: file
+        path: srcpkg-dl.conf
+  - name: git-commit
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 git-commit.sh /app/bin/git-commit
+    sources:
+      - type: file
+        path: git-commit.sh
+#  - name: git-credential-shelper
+#    buildsystem: simple
+#    build-commands:
+#      - install -Dm755 git-credential-shelper.sh /app/bin/git-credential-shelper
+#    sources:
+#      - type: file
+#        path: git-credential-shelper.sh
+  - name: git-credential-bashelper
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 git-credential-bashelper.sh /app/bin/git-credential-bashelper
+    sources:
+      - type: file
+        path: git-credential-bashelper.sh
+  - name: git-remote
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 git-remote.sh /app/bin/git-remote
+    sources:
+      - type: file
+        path: git-remote.sh
+  - name: srcpkg2git
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 srcpkg2git.sh /app/bin/srcpkg2git
+    sources:
+      - type: file
+        path: srcpkg2git.sh
+  - name: srcpkg-dl
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 srcpkg-dl.sh /app/bin/srcpkg-dl
+    sources:
+      - type: file
+        path: srcpkg-dl.sh
+rename-desktop-file: srcpkg-dl.desktop
+rename-appdata-file: srcpkg-dl.appdata.xml
+rename-icon: srcpkg-dl
+copy-icon: true
